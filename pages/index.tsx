@@ -3,18 +3,34 @@ import Head from 'next/head'
 import Link from 'next/link';
 import React, {useState, useEffect} from 'react'
 
-const Home: NextPage = () => {
 
 
-  const [pokemon, setPokemon] = useState<any[]>([])
+// ----------------- this is the CSR SERVER SIDE RENDERING -----------------
+  export async function getServerSideProps(){
+  const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
 
-  useEffect(() => {
-    async function getPokemon() {
-      const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
-      setPokemon(await resp.json());
+  return {
+    props: {
+      pokemon: await resp.json(),
     }
-    getPokemon();
-  }, []);
+  }
+}
+
+
+const Home: NextPage = ({pokemon}: any) => {
+
+  // ----------------- this is the CSR CLIENT SIDE RENDERING -----------------
+
+
+  // const [pokemon, setPokemon] = useState<any[]>([])
+
+  // useEffect(() => {
+  //   async function getPokemon() {
+  //     const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
+  //     setPokemon(await resp.json());
+  //   }
+  //   getPokemon();
+  // }, []);
 
 
   return (

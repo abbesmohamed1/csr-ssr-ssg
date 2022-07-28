@@ -18,7 +18,21 @@ import Head from 'next/head'
 import Link from 'next/link';
 import React, {useState, useEffect} from 'react'
 
-export async function getServerSideProps({params}:any) {
+export async function getStaticPaths() {
+    const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
+    
+    const pokemon = await resp.json();
+    
+    return {
+        paths: pokemon.map((pokemon:any)=> ({
+            params: { id: pokemon.id.toString() },
+        })),
+        fallback: false,
+    }
+}
+
+
+export async function getStaticProps({params}:any) {
     const resp = await fetch(`https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`);
 
     return {
@@ -27,6 +41,17 @@ export async function getServerSideProps({params}:any) {
         }
     }
 }
+
+
+// export async function getServerSideProps({params}:any) {
+//     const resp = await fetch(`https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`);
+
+//     return {
+//         props: {
+//             pokemon: await resp.json(),
+//         }
+//     }
+// }
 
 
 const Details: NextPage = ({pokemon}: any) =>{

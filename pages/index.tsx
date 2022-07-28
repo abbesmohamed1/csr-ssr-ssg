@@ -5,8 +5,8 @@ import React, {useState, useEffect} from 'react'
 
 
 
-// ----------------- this is the CSR SERVER SIDE RENDERING -----------------
-  export async function getServerSideProps(){
+// ----------------- this is the SSG STATIC SITE GENERATION -----------------
+export async function getStaticProps(){
   const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
 
   return {
@@ -15,6 +15,19 @@ import React, {useState, useEffect} from 'react'
     }
   }
 }
+
+
+
+// ----------------- this is the CSR SERVER SIDE RENDERING -----------------
+//   export async function getServerSideProps(){
+//   const resp = await fetch("https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json");
+
+//   return {
+//     props: {
+//       pokemon: await resp.json(),
+//     }
+//   }
+// }
 
 
 const Home: NextPage = ({pokemon}: any) => {

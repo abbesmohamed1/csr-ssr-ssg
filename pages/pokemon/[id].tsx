@@ -38,7 +38,8 @@ export async function getStaticProps({params}:any) {
     return {
         props: {
             pokemon: await resp.json(),
-        }
+        },
+        revalidate: 30,
     }
 }
 

@@ -41,7 +41,7 @@ const Home: NextPage = ({pokemon}: any) => {
       <h2 className=''>Pokemon List</h2>
 
       <div className='grid grid-cols-4 gap-10'>
-        {pokemon.map((pokemon,index) => (
+        {pokemon.map((pokemon: any,index: any) => (
           <div key={index} className=''>
             <Link href={`/pokemon/${pokemon?.id}`}>
               <a>
